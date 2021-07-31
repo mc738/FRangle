@@ -9,19 +9,22 @@ module Pipelines =
         | Ok r -> switchFunction r
         | Error e -> Error e
 
+    /// Bind.
     let (>>=) twoTrackInput switchFunction = bind switchFunction twoTrackInput
 
+    /// Pipe.
     let (>=>) switch1 switch2 x =
         match switch1 x with
         | Ok r -> switch2 r
         | Error e -> Error e
 
-    
+    /// Recover.
     let (>?>) switch1 switch2 x =
         match switch1 x with
         | Ok r -> Ok r
         | Error e -> switch2 x
     
+    /// Pass through.
     let (>->) (switch1: 'a -> Result<'b, 'c>) (passThru: Result<'b, 'c> -> unit) (x: 'a) =
         let r = switch1 x
         passThru r
@@ -63,14 +66,12 @@ module Pipelines =
         | Ok _, Error e -> Error e
         | Error e1, Error e2 -> Error (addFailureFunc e1 e2)
 
-
     let start _ = Ok ()
     
     /// Run an async function and get a result.
     let run f a =
         let r = f a |> Async.RunSynchronously
         r
-    
     
     /// Transform an object of type 'TIn to 'TOut via a handler function
     let transform<'TIn, 'TOut> (handler: 'TIn -> 'TOut) (value: 'TIn) : Result<'TOut, Errors.FRangleError> =

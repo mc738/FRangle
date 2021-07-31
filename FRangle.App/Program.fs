@@ -3,14 +3,11 @@
 open System
 open System.Net.Http
 open FRangle.Core
-open FRangle.Core.Domain
-open FRangle.Core.Domain.Errors
 open FRangle.Core.Pipelines
 open FRangle.ToolKit.Dev
 
 // Define a function to construct a message to print
 let from whom = sprintf "from %s" whom
-
 
 let printResult result =
     match result with
@@ -64,11 +61,9 @@ let pipelines = PipelineCollection<unit, string>.Create([
    
 [<EntryPoint>]
 let main argv =
-
     //match buildFRangleTest () with
     //| Ok msg -> printfn $"Success. {msg}"
     //| Error e -> printfn $"Error! %A{e}"
-
     
     match pipelines.Run("stub", ()) with
     | Ok msg -> printfn $"Success. {msg}"
@@ -101,7 +96,6 @@ let main argv =
                 | Ok _ -> printfn "All is good!"
                 | Error e -> printfn "Error: %A" e)
     *)  
-        
         
     //match test () with
     //| Ok r -> printfn "Success! %A" r
