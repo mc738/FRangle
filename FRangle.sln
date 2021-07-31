@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FRangle.Core", "FRangle.Core\FRangle.Core.fsproj", "{95A944A4-2CC8-4806-BF9A-95F8988A7F43}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FRangle.App", "FRangle.App\FRangle.App.fsproj", "{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{B8C9EEBD-D382-4CE2-8776-81B2F94C7F1E}"
+ProjectSection(SolutionItems) = preProject
+	README.md = README.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95A944A4-2CC8-4806-BF9A-95F8988A7F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A944A4-2CC8-4806-BF9A-95F8988A7F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A944A4-2CC8-4806-BF9A-95F8988A7F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A944A4-2CC8-4806-BF9A-95F8988A7F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

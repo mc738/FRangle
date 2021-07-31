@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <WarnOn>3390;$(WarnOn)</WarnOn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Pipelines.fs" />
+        <Compile Include="Extensions.fs" />
+        <Compile Include="Domain.fs" />
+        <Compile Include="Xml.fs" />
+        <Compile Include="Json.fs" />
+        <Compile Include="Files.fs" />
+        <Compile Include="Http.fs" />
+        <Compile Include="Tools.fs" />
+        <Compile Include="Processes.fs" />
+    </ItemGroup>
+
+</Project>
