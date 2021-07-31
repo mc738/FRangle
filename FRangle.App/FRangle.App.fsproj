@@ -12,6 +12,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FRangle.Core\FRangle.Core.fsproj" />
+      <ProjectReference Include="..\FRangle.ToolKit.Data\FRangle.ToolKit.Data.fsproj" />
+      <ProjectReference Include="..\FRangle.ToolKit.Dev\FRangle.ToolKit.Dev.fsproj" />
+      <ProjectReference Include="..\FRangle.ToolKit\FRangle.ToolKit.fsproj" />
     </ItemGroup>
 
 </Project>

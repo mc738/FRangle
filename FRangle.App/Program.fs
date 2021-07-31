@@ -6,6 +6,7 @@ open FRangle.Core
 open FRangle.Core.Domain
 open FRangle.Core.Domain.Errors
 open FRangle.Core.Pipelines
+open FRangle.ToolKit.Dev
 
 // Define a function to construct a message to print
 let from whom = sprintf "from %s" whom
@@ -19,16 +20,16 @@ let printResult result =
 let runAndDiscard =
     Processes.run
     >-> printResult
-    >=> Tools.discard
+    >=> discard
 
 let buildFRangleTest =
-    Tools.create (fun _ -> [ "C:\\Test\\App"; "C:\\Test\\Core" ]) 
+    create (fun _ -> [ "C:\\Test\\App"; "C:\\Test\\Core" ]) 
     >=> Tools.mkdir
-    >=> Tools.create (fun _ -> { Name = "C:\\Program Files\\dotnet\\dotnet"; Args = "build -o C:\\Test\\Core"; StartDirectory = Some "C:\\Users\\44748\\Projects\\FRangle\\FRangle.Core" } : Processes.ProcessParameters)
+    >=> create (fun _ -> { Name = "C:\\Program Files\\dotnet\\dotnet"; Args = "build -o C:\\Test\\Core"; StartDirectory = Some "C:\\Users\\44748\\Projects\\FRangle\\FRangle.Core" } : Processes.ProcessParameters)
     >=> runAndDiscard
-    >=> Tools.create (fun _ -> { Name = "C:\\Program Files\\dotnet\\dotnet"; Args = "build -o C:\\Test\\App"; StartDirectory = Some "C:\\Users\\44748\\Projects\\FRangle\\FRangle.App" } : Processes.ProcessParameters)
+    >=> create (fun _ -> { Name = "C:\\Program Files\\dotnet\\dotnet"; Args = "build -o C:\\Test\\App"; StartDirectory = Some "C:\\Users\\44748\\Projects\\FRangle\\FRangle.App" } : Processes.ProcessParameters)
     >=> runAndDiscard
-    >=> Tools.create (fun _ -> "Pipeline complete!")
+    >=> create (fun _ -> "Pipeline complete!")
     
 let getDotNetGitIgnore _ =    
     let timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss")
@@ -36,18 +37,22 @@ let getDotNetGitIgnore _ =
     
     // inner function used to stop client from disposing of itself    
     let pipeline =
-        Tools.create (fun _ -> ()) // A bit of a hack, start was being a pain.
+        create (fun _ -> ()) // A bit of a hack, start was being a pain.
         >=> Http.getString "https://raw.githubusercontent.com/dotnet/core/main/.gitignore" client
         >-> printResult
         >=> Files.write $"C:\\Users\\44748\\Projects\\__Resources\\dot-net-git-ignore_{timestamp}.txt"
-        >=> Tools.create (fun _ -> ".net git ignore saved!")
+        >=> create (fun _ -> ".net git ignore saved!")
         //>=> Http.getString "https://raw.githubusercontent.com/dotnet/core/main/.gitignore" client
         //>=> Tools.create (fun _ -> "Pipeline complete!")
     
     pipeline ()
     
+let getOutstandingDevopsItems _ =
+    AzureDevOps.getOpenWorkItems "" "" ""
+    //>=> (fun i -> pr Ok i)
+    
 let stub =
-    Tools.create (fun _ -> "Stub pipeline.")
+    create (fun _ -> "Stub pipeline.")
     >-> printResult
     
 /// An example pipeline collection.

@@ -37,14 +37,4 @@ module Errors =
         | UnhandledException of string
         | ProcessError of ProcessError
         | PipelineNotFound of string
-
-/// A collection of pipelines. 
-type PipelineCollection<'TIn, 'TOut> =
-    { Pipelines: Map<string, 'TIn -> Result<'TOut, Errors.FRangleError>> }
-    static member Create(pipelines: (string * ('TIn -> Result<'TOut, Errors.FRangleError>)) list) =
-        { Pipelines = pipelines |> Map.ofList }
-
-    member collection.Run(name: string, value: 'TIn) =
-        match collection.Pipelines.TryFind name with
-        | Some pipeline -> pipeline value
-        | None -> Error (Errors.FRangleError.PipelineNotFound name)
+        | BespokeError of string

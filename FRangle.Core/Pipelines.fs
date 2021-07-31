@@ -1,5 +1,7 @@
 ﻿namespace FRangle.Core
 
+open FRangle.Core.Domain
+
 module Pipelines =
       
     let bind switchFunction twoTrackInput =
@@ -68,3 +70,40 @@ module Pipelines =
     let run f a =
         let r = f a |> Async.RunSynchronously
         r
+    
+    
+    /// Transform an object of type 'TIn to 'TOut via a handler function
+    let transform<'TIn, 'TOut> (handler: 'TIn -> 'TOut) (value: 'TIn) : Result<'TOut, Errors.FRangleError> =
+            switch handler value
+    
+    let create<'T> (handler: unit -> 'T) (run: unit) : Result<'T, Errors.FRangleError> = switch handler run
+    
+    let check<'T> (handler: 'T -> Result<unit, string>) (value: 'T) =
+            match handler value with
+            | Ok _ -> Ok value
+            | Error m -> Error(Errors.FailedCheck { Message = m })
+    
+    let conditional<'TIn, 'TOut>
+            (condition: 'TIn -> bool)
+            (trueHandler: 'TIn -> 'TOut)
+            (falseHandler: 'TIn -> 'TOut)
+            (value: 'TIn)
+            : Result<'TOut, Errors.FRangleError> =
+            match condition value with
+            | true -> switch trueHandler value
+            | false -> switch falseHandler value
+    
+    /// Discards the count value and returns
+    let discard value : Result<unit, Errors.FRangleError> = switch (fun _ -> ()) value    
+        
+        
+    /// A collection of pipelines. 
+    type PipelineCollection<'TIn, 'TOut> =
+        { Pipelines: Map<string, 'TIn -> Result<'TOut, Errors.FRangleError>> }
+        static member Create(pipelines: (string * ('TIn -> Result<'TOut, Errors.FRangleError>)) list) =
+            { Pipelines = pipelines |> Map.ofList }
+
+        member collection.Run(name: string, value: 'TIn) =
+            match collection.Pipelines.TryFind name with
+            | Some pipeline -> pipeline value
+            | None -> Error (Errors.FRangleError.PipelineNotFound name)

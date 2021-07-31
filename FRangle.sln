@@ -9,6 +9,12 @@ ProjectSection(SolutionItems) = preProject
 	README.md = README.md
 EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FRangle.ToolKit.Dev", "FRangle.ToolKit.Dev\FRangle.ToolKit.Dev.fsproj", "{088B8CEA-FCF6-479E-8575-417F781B43B3}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FRangle.ToolKit", "FRangle.ToolKit\FRangle.ToolKit.fsproj", "{A669424B-56A7-452A-B09B-865D378EC64C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FRangle.ToolKit.Data", "FRangle.ToolKit.Data\FRangle.ToolKit.Data.fsproj", "{9BFE82DF-8D73-4112-A245-B346AA5D8382}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +29,17 @@ Global
 		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EEE1CF9-E28B-483B-83A5-8ACF80A7F7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{088B8CEA-FCF6-479E-8575-417F781B43B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088B8CEA-FCF6-479E-8575-417F781B43B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088B8CEA-FCF6-479E-8575-417F781B43B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088B8CEA-FCF6-479E-8575-417F781B43B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A669424B-56A7-452A-B09B-865D378EC64C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A669424B-56A7-452A-B09B-865D378EC64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A669424B-56A7-452A-B09B-865D378EC64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A669424B-56A7-452A-B09B-865D378EC64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BFE82DF-8D73-4112-A245-B346AA5D8382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BFE82DF-8D73-4112-A245-B346AA5D8382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BFE82DF-8D73-4112-A245-B346AA5D8382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BFE82DF-8D73-4112-A245-B346AA5D8382}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

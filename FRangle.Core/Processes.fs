@@ -56,17 +56,7 @@ module Processes =
         let output, errors = execute parameters.Name parameters.Args parameters.StartDirectory
         match errors.Length = 0 with
         | true -> Ok output
-        | false -> Error (FRangleError.ProcessError { Errors = errors })   
-        
-[<RequireQualifiedAccess>]
-module Git =
-    
-    let latestCommitHash path =
-        let output, errors = Processes.execute "git" "rev-parse HEAD" path
-        match errors.Length = 0 with
-        | true -> Ok output.Head
-        | false -> Error (String.Join(Environment.NewLine, errors))           
-        
+        | false -> Error (FRangleError.ProcessError { Errors = errors })
         
         
         
