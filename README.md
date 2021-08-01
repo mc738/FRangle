@@ -8,12 +8,30 @@ There are also tool kits included for specific work flows.
 The aim is to make it easy to chain these operations (and user defined ones) together.
 This following the `unix` philosophy and is heavily influenced by `railway orientated programming`.
  
+## What are pipelines (in this context)?
+
+Pipelines are a series of operations that can that are dependent on the result of the previous operation
+and can potential fail.
+
+If an operation fails, following operations will (generally) not be run.
+
+This means they are suited to tasks that required multiple independent steps to be performed in series.
+
+They are not designed to be be a long running task, rather to simplify such work flows and error handling.
+
+Also, they are reasonable stateless. An operation depends on the previous result, it is generally upto the user to handle state (see examples).
+
+Due to the nature of operations they could be a few side effects (such as persisting data), the aim of the library is to wrap this up an present a semi FP way to handle it.
+
+The benefit of this approach is that operations can be independently build, tested and chained together to offer a lot of flexibility. 
+
 ## Infixes
 
 * `>>=` - Bind.
 * `>=>` - Pipe.
 * `>->` - Pass through.
 * `>?>` - Recover.
+* `>+>` - Combine.
 
 ## Why so many `unit`/`_`/`()`/`'a`'s?
 
