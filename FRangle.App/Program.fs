@@ -61,11 +61,25 @@ let stub =
     create (fun _ -> "Stub pipeline.")
     >-> printResult
     
+let mergeTest =
+    
+    //let createInt (value: int) = create (fun _ -> value) ()
+    
+    //createInt
+    //>+> createInt 2
+    let sum (a: int) (b: int) = a + b
+    
+    create (fun _ -> 1)
+    >+> create (fun _ -> 2)
+    >=> merge2 sum
+    >=> (fun v -> Ok (v.ToString()))
+    
 /// An example pipeline collection.
 let pipelines = PipelineCollection<unit, string>.Create([
     "get-git-ignore", getDotNetGitIgnore
     "build-FRangle", buildFRangleTest
     "grep-test", grepTest
+    "sum", mergeTest
     "stub", stub
 ]) 
    
@@ -75,7 +89,7 @@ let main argv =
     //| Ok msg -> printfn $"Success. {msg}"
     //| Error e -> printfn $"Error! %A{e}"
     
-    match pipelines.Run("grep-test", ()) with
+    match pipelines.Run("sum", ()) with
     | Ok msg -> printfn $"Success. {msg}"
     | Error e -> printfn $"Error! %A{e}"
     

@@ -11,6 +11,8 @@
         <Compile Include="AzureDevOps.fs" />
         <Folder Include="Documentation" />
         <Content Include="README.md" />
+        <Compile Include="DotNetCLI.fs" />
+        <Compile Include="DevTools.fs" />
     </ItemGroup>
 
     <ItemGroup>
