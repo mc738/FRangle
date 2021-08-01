@@ -2,6 +2,7 @@
 
 open System
 open System.Net.Http
+open System.Reflection.Emit
 open FRangle.Core
 open FRangle.Core.Domain.Errors
 open FRangle.Core.Pipelines
@@ -45,6 +46,31 @@ let getDotNetGitIgnore _ =
     
     pipeline ()
     
+let buildLinuxApp: unit -> Result<string, FRangleError> =
+    let config = ({
+        DotNetPath = "C:\\Program Files\\dotnet\\dotnet"
+    } : DotNetCLI.Config)
+    
+    let buildConfig = ({
+        Configuration = Some "Release"
+        Framework = None
+        Force = false
+        Interactive = false
+        NoDependencies = false
+        NoIncremental = false
+        NoRestore = false
+        NoLogo = false
+        Output = Some "\\\\wsl$\\Ubuntu-20.04\\home\\max\\apps\\dummy"
+        Runtime = Some "linux-x64"
+        Source = None
+        Verbosity = None
+        VersionSuffix = None
+        
+    } : DotNetCLI.BuildConfig)
+    
+    DotNetCLI.buildWithConfig config buildConfig "C:\\Users\\44748\\Projects\\DummyApp\\DummyApp"
+    >=> Strings.concat Environment.NewLine
+    
 let getOutstandingDevopsItems _ =
     AzureDevOps.getOpenWorkItems "" "" ""
     //>=> (fun i -> pr Ok i)
@@ -81,9 +107,6 @@ let guidParseTest : unit -> Result<string, FRangleError> =
     >-> printResult
     >=> Guids.parse
     >=> (fun v -> Ok (v.ToString()))
-
-    
-    
     
 /// An example pipeline collection.
 let pipelines = PipelineCollection<unit, string>.Create([
@@ -92,6 +115,7 @@ let pipelines = PipelineCollection<unit, string>.Create([
     "grep-test", grepTest
     "sum", mergeTest
     "guid", guidParseTest
+    "linux", buildLinuxApp
     "stub", stub
 ]) 
    
@@ -101,7 +125,7 @@ let main argv =
     //| Ok msg -> printfn $"Success. {msg}"
     //| Error e -> printfn $"Error! %A{e}"
     
-    match pipelines.Run("guid", ()) with
+    match pipelines.Run("linux", ()) with
     | Ok msg -> printfn $"Success. {msg}"
     | Error e -> printfn $"Error! %A{e}"
     
