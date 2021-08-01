@@ -50,7 +50,7 @@ As such the should try and minimize the reliance on external libraries (out side
 
 The developer tool kit (`FRangle.ToolKit.Dev`) contains operations specifically useful for developer work flows.
 
-[FRangle.ToolKit.Dev README.md](./FRangle.Toolkit.Dev/README.md)
+[FRangle.ToolKit.Dev README.md](./FRangle.ToolKit.Dev/README.md)
 
 [More to come]
 
