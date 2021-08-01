@@ -15,6 +15,14 @@ This following the `unix` philosophy and is heavily influenced by `railway orien
 * `>->` - Pass through.
 * `>?>` - Recover.
 
+## Why so many `unit`/`_`/`()`/`'a`'s?
+
+The use of `_` as the last parameter in operations is to help with making the operation reliant on a previous one completing.
+
+It will show it's self as `'a` types and will be handled when the pipeline is executed.
+
+This is also way to start a pipeline with a `unit`. `start`, `startWith<'T>` and `create<'T>` all follow this pattern for example. 
+
 ## Core
 
 The core library contains the base pipeline functions and specific modules for common tasks involving:
@@ -41,6 +49,8 @@ As such the should try and minimize the reliance on external libraries (out side
 ### Developer tool kit
 
 The developer tool kit (`FRangle.ToolKit.Dev`) contains operations specifically useful for developer work flows.
+
+[FRangle.ToolKit.Dev README.md](./FRangle.Toolkit.Dev/README.md)
 
 [More to come]
 

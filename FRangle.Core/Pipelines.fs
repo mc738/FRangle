@@ -68,6 +68,8 @@ module Pipelines =
 
     let start _ = Ok ()
     
+    
+    
     /// Run an async function and get a result.
     let run f a =
         let r = f a |> Async.RunSynchronously
@@ -78,6 +80,8 @@ module Pipelines =
             switch handler value
     
     let create<'T> (handler: unit -> 'T) (run: unit) : Result<'T, Errors.FRangleError> = switch handler run
+    
+    let startWith<'T> (value: 'T) (run: unit) : Result<'T, Errors.FRangleError> = switch (fun _ -> value) run
     
     let check<'T> (handler: 'T -> Result<unit, string>) (value: 'T) =
             match handler value with

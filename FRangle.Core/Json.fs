@@ -8,7 +8,8 @@ open FRangle.Core.Pipelines
 
 [<RequireQualifiedAccess>]
 module Json =
-    
+
+    /// Deserialize a stream to type 'T.    
     let deserializeStreamAsync<'T> (json: Stream) =
         async {
             try
@@ -71,4 +72,3 @@ module Json =
                               Exception = e.Message }
                     )
             | e -> Error (FRangleError.UnhandledException e.Message)
-    

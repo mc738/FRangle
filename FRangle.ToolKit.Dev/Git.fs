@@ -13,6 +13,4 @@ module Git =
             let output, errors = Processes.execute "git" "rev-parse HEAD" path
             match errors.Length = 0 with
             | true -> Ok output.Head
-            | false -> Error (String.Join(Environment.NewLine, errors))           
-            
-
+            | false -> Error (String.Join(Environment.NewLine, errors))

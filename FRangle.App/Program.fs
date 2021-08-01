@@ -47,6 +47,15 @@ let getDotNetGitIgnore _ =
 let getOutstandingDevopsItems _ =
     AzureDevOps.getOpenWorkItems "" "" ""
     //>=> (fun i -> pr Ok i)
+
+let grepTest =
+    create (fun _ -> [
+        "* Get this."
+        "Not this"
+        "* and this"
+    ])
+    >=> Tools.grep "^\*."
+    >=> Tools.concat Environment.NewLine
     
 let stub =
     create (fun _ -> "Stub pipeline.")
@@ -56,6 +65,7 @@ let stub =
 let pipelines = PipelineCollection<unit, string>.Create([
     "get-git-ignore", getDotNetGitIgnore
     "build-FRangle", buildFRangleTest
+    "grep-test", grepTest
     "stub", stub
 ]) 
    
@@ -65,7 +75,7 @@ let main argv =
     //| Ok msg -> printfn $"Success. {msg}"
     //| Error e -> printfn $"Error! %A{e}"
     
-    match pipelines.Run("stub", ()) with
+    match pipelines.Run("grep-test", ()) with
     | Ok msg -> printfn $"Success. {msg}"
     | Error e -> printfn $"Error! %A{e}"
     

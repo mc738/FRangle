@@ -9,6 +9,8 @@
     <ItemGroup>
         <Compile Include="Git.fs" />
         <Compile Include="AzureDevOps.fs" />
+        <Folder Include="Documentation" />
+        <Content Include="README.md" />
     </ItemGroup>
 
     <ItemGroup>
