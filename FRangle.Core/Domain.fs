@@ -1,5 +1,7 @@
 ﻿namespace FRangle.Core.Domain
 
+open System
+
 module Errors =
 
 
@@ -17,6 +19,11 @@ module Errors =
 
     type ProcessError = { Errors: string list }
 
+    type TypeParseError = {
+        Type: Type
+        Message: string
+    }
+    
     type FileError =
         | Argument of string
         | ArgumentNull of string
@@ -38,3 +45,4 @@ module Errors =
         | ProcessError of ProcessError
         | PipelineNotFound of string
         | BespokeError of string
+        | TypeParseError of TypeParseError

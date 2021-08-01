@@ -3,6 +3,7 @@
 open System
 open System.Net.Http
 open FRangle.Core
+open FRangle.Core.Domain.Errors
 open FRangle.Core.Pipelines
 open FRangle.ToolKit.Dev
 
@@ -63,16 +64,26 @@ let stub =
     
 let mergeTest =
     
-    //let createInt (value: int) = create (fun _ -> value) ()
+    let createInt (value: int) = create (fun _ -> value)
     
     //createInt
     //>+> createInt 2
     let sum (a: int) (b: int) = a + b
     
-    create (fun _ -> 1)
-    >+> create (fun _ -> 2)
+    Ints.create 1
+    >+> Ints.create 2
     >=> merge2 sum
     >=> (fun v -> Ok (v.ToString()))
+    
+let guidParseTest : unit -> Result<string, FRangleError> =
+    Guids.create
+    >=> (fun v -> Ok (v.ToString()))
+    >-> printResult
+    >=> Guids.parse
+    >=> (fun v -> Ok (v.ToString()))
+
+    
+    
     
 /// An example pipeline collection.
 let pipelines = PipelineCollection<unit, string>.Create([
@@ -80,6 +91,7 @@ let pipelines = PipelineCollection<unit, string>.Create([
     "build-FRangle", buildFRangleTest
     "grep-test", grepTest
     "sum", mergeTest
+    "guid", guidParseTest
     "stub", stub
 ]) 
    
@@ -89,7 +101,7 @@ let main argv =
     //| Ok msg -> printfn $"Success. {msg}"
     //| Error e -> printfn $"Error! %A{e}"
     
-    match pipelines.Run("sum", ()) with
+    match pipelines.Run("guid", ()) with
     | Ok msg -> printfn $"Success. {msg}"
     | Error e -> printfn $"Error! %A{e}"
     
